@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, flash
 from wtforms_fields import *
 from models import *
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
@@ -44,6 +44,7 @@ def index():
         user = User(username=username, password=hashed_pswd)
         db.session.add(user)
         db.session.commit()
+        flash('Registerd succesfully. PLEASE LOGIN', 'success')
         return redirect(url_for('login'))
 
     return render_template("index.html", form=reg_form)
@@ -57,23 +58,24 @@ def login():
     if login_form.validate_on_submit():
         user_object = User.query.filter_by(username=login_form.username.data).first()
         login_user(user_object)
-        return redirect(url_for('chat')) 
+        return redirect(url_for('chat'))
 
 
     return render_template("login.html", form=login_form)
 
 @app.route("/chat", methods=['GET', 'POST'])
-@login_required
 def chat():
+    if not current_user.is_authenticated:
+        flash('Please login.', 'danger')
+        return redirect(url_for('login'))
+
     return "chat with me"
 @app.route("/logout", methods=['GET'])
 def logout():
 
-    if current_user.is_authenticated:
-        logout_user()
-        return "Logged out"
-    else:
-        return "no user"
+    logout_user()
+    flash('you have successfully logged out', 'success')
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
 
