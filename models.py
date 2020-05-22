@@ -1,9 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
+# Usermixin adds only some properties
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """ User Model """
 
     __tablename__ = "users"
