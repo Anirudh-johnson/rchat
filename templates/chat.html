@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script data-ad-client="ca-pub-7944419341705162" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav>
+
+    </nav>
+
+    <div id="main-sectionr">
+      <!-- Sidebar for room selection -->
+      <nav id="sidebar">
+          <h4>ROOMS</h4>
+          {% for room in rooms %}
+            <p class="Select-rooms">{{ room|title }}</p>
+          {% endfor %}
+      </nav>
+      <!-- Message area -->
+      <div id="rightside-panel">
+        <!-- Display Area -->
+        <div id="display-message-section">
+
+        </div>
+        <!-- Inout Mesasge  -->
+        <div id="input-area">
+          <input type="text" id="user_message" placeholder="Type here">
+          <button type="button" id="send_message">SEND</button>
+        </div>
+
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const username = `{{ username }}`;
+    </script>
+    <!-- Custom Script -->
+
+    <script src="{{ url_for('static', filename='scripts/chat_page.js') }}">
+      </script>
+    <!-- SocketIo script -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+    <!-- Custom Script -->
+    <script src="{{ url_for('static', filename='scripts/socketio.js') }}">
+      </script>
+
+
+
+  </body>
+</html>
